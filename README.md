@@ -3,7 +3,7 @@ This sample shows you how to use eBay Oauth and deploy it in [Google App Engine]
 
 
 ## Before running the app
-1. Register a new Application in https://developer.ebay.om
+1. Register a new Application in https://developer.ebay.com
 2. Update [DemoServlet]https://github.com/sengopal/appengine-try-java/blob/master/src/main/java/myapp/DemoServlet.java with the client_id and client_secret
 
 ## Before you begin Google Cloud Deployment
