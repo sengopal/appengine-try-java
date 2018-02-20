@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Signin Template for Bootstrap</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h4>Registered an app via developer.ebay.com</h4>
+    <h5>App Credentials registered earlier</h5>
+    <ul>
+        <li>client_id : CSC83d74b-c9aa-4eed-8356-88f65c29047</li>
+        <li>client_secret : CSC83d74b-xxx-xxxx-xxxxxx</li>
+    </ul>
+    <h3 class="h3 mb-3 font-weight-normal">Temporary Code Received</h3>
+    <div id="result"></div>
+    <div class="row">
+        <button class="btn btn-primary" type="button" id="exch-btn"
+                data-loading-text="<i class='fa fa-spinner fa-spin fa-fw' aria-hidden='true'></i>Processing">Exchange
+            Code for token
+        </button>
+    </div>
+    <div id="token-results" style="visibility: hidden">
+        <div class="row">
+            <div class="col-sm">
+                <h5>Using App Credentials exchanged code to token</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h3> Access Token: </h3>
+                <div id="access-token"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h3> Refresh Token: </h3>
+                <div id="refresh-token"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <label for="inputQuery" class="sr-only">Search for Items</label>
+                <input type="text" id="inputQuery" class="form-control" placeholder="Search ...">
+                <button class="btn btn-primary" type="button" id="search-btn"
+                        data-loading-text="<i class='fa fa-spinner fa-spin fa-fw' aria-hidden='true'></i>Searching">
+                    Search
+                    for items
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h3> Search Results</h3>
+                <div id="search-result"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var token = "";
+        var searchResults = "";
+        $(document).ready(function () {
+            var getUrlParameter = function getUrlParameter(sParam) {
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                }
+            };
+
+            var setLoading = function (btn) {
+
+                if (!btn.data('normal-text')) {
+                    btn.data('normal-text', btn.html());
+                }
+                btn.html(btn.data('loading-text'));
+            };
+
+            var clearLoading = function (btn) {
+                btn.html(btn.data('normal-text'));
+            };
+
+            var code = getUrlParameter('code');
+            $('#result').html(code);
+
+            $('#exch-btn').on('click', function () {
+                setLoading($('#exch-btn'));
+                $.ajax({
+                    url: "/exchange",
+                    type: "get",
+                    data: {
+                        code: code
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        token = response.accessToken
+                        $('#access-token').html(response.accessToken);
+                        $('#refresh-token').html(response.refreshToken);
+                        clearLoading($('#exch-btn'));
+                        $('#token-results').css('visibility', 'visible');
+                    },
+                    error: function (xhr) {
+                        console.log(xhr)
+                        $('#token-result').html = xhr
+                        clearLoading($('#exch-btn'));
+                    }
+                });
+            });
+
+            function buildResultDiv(result) {
+                searchResults = result;
+                text = "<div><div class='row'>";
+
+                for (i = 0; i < searchResults.itemSummaries.length; i++) {
+                    item = searchResults.itemSummaries[i];
+                    // text += "<div class='item'>";
+                    // text += "<h3>" + item.title + "</h3>";
+                    // text += "<img src='" + item.image.imageUrl + "' height=\"42\" width=\"42\">";
+                    // text += "</div>";
+                    text += " <div class='col-sm'>";
+                    text += "<div class='card' style='width: 18rem;'>";
+                    text += "<img class='card-img-top' src='" + item.image.imageUrl + "' alt='Card image cap'>";
+                    text += "<div class='card-body'><p class='card-text'>" + item.title + "</p></div></div>";
+                    text += "</div>";
+                }
+                text += "</div></div>";
+
+                console.log(text)
+                return text
+            }
+
+            $('#search-btn').on('click', function () {
+                setLoading($('#search-btn'));
+                $.ajax({
+                    url: "/search",
+                    type: "get",
+                    data: {
+                        query: $('#inputQuery').val(),
+                        token: token
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        $('#search-result').html(buildResultDiv(JSON.parse(response.result)));
+                        clearLoading($('#search-btn'));
+                    },
+                    error: function (xhr) {
+                        console.log(xhr)
+                        $('#search-result').html = xhr
+                        clearLoading($('#search-btn'));
+                    }
+                });
+
+                // $.getJSON('/demo', function(data) {
+                //     $('#result').html("Hello, " + data.name);
+                // });
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Signin Template for Bootstrap</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+<form class="container">
+    <h4>Registered an app via developer.ebay.com</h4>
+    <h5>App Credentials obtained</h5>
+    <ul>
+        <li>client_id : CSC83d74b-c9aa-4eed-8356-88f65c29047</li>
+        <li>client_secret : CSC83d74b-xxx-xxxx-xxxxxx</li>
+    </ul>
+    <img class="mb-4" src="index_conf.png" alt="" width="288" height="144">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <!--<label for="inputEmail" class="sr-only">Email address</label>-->
+    <!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>-->
+    <!--<label for="inputPassword" class="sr-only">Password</label>-->
+    <!--<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
+    <!--<div class="checkbox mb-3">-->
+    <!--<label>-->
+    <!--<input type="checkbox" value="remember-me"> Remember me-->
+    <!--</label>-->
+    <!--</div>-->
+    <div id="urlcode">
+        https://auth.ebay.com/oauth2/authorize?client_id=CSC83d74b-c9aa-4eed-8356-88f65c29047&response_type=code&redirect_uri=C_SC-CSC83d74b-c9aa--ezxsnf&scope=https://api.ebay.com/oauth/api_scope&prompt=login
+    </div>
+    <button class="btn btn-lg btn-primary" type="button" id="signin-btn">Sign in with eBay</button>
+
+</form>
+<script>
+    $(document).ready(function () {
+        $('#signin-btn').on('click', function () {
+            console.log("error");
+            window.location = "https://auth.ebay.com/oauth2/authorize?client_id=CSC83d74b-c9aa-4eed-8356-88f65c29047&response_type=code&prompt=login&redirect_uri=C_SC-CSC83d74b-c9aa--ezxsnf&scope=https://api.ebay.com/oauth/api_scope%20https://api.ebay.com/oauth/api_scope/sell.marketing.readonly%20https://api.ebay.com/oauth/api_scope/sell.marketing%20https://api.ebay.com/oauth/api_scope/sell.inventory.readonly%20https://api.ebay.com/oauth/api_scope/sell.inventory%20https://api.ebay.com/oauth/api_scope/sell.account.readonly%20https://api.ebay.com/oauth/api_scope/sell.account%20https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly%20https://api.ebay.com/oauth/api_scope/sell.fulfillment%20https://api.ebay.com/oauth/api_scope/sell.analytics.readonly";
+        });
+    });
+</script>
+</body>
+</html>

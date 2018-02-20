@@ -12,7 +12,15 @@
         <servlet-name>demo</servlet-name>
         <url-pattern>/demo</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>demo</servlet-name>
+        <url-pattern>/exchange</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>demo</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>signin.html</welcome-file>
     </welcome-file-list>
 </web-app>
