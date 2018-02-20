@@ -1,13 +1,12 @@
-# Hello Google App Engine for Java™
+# Sample Web App to Demonstrate eBay Oauth
+This sample shows you how to use eBay Oauth and deploy it in [Google App Engine](https://cloud.google.com/appengine/docs/java/).
 
-[![Build
-Status](https://travis-ci.org/GoogleCloudPlatform/appengine-try-java.svg?branch=master)](https://travis-ci.org/GoogleCloudPlatform/appengine-try-java)
 
-This sample shows you how to deploy a simple "Hello World" application to
-[Google App Engine](https://cloud.google.com/appengine/docs/java/).
+## Before running the app
+1. Register a new Application in https://developer.ebay.om
+2. Update [DemoServlet]https://github.com/sengopal/appengine-try-java/blob/master/src/main/java/myapp/DemoServlet.java with the client_id and client_secret
 
-## Before you begin
-
+## Before you begin Google Cloud Deployment
 1.  Download and install the [Google Cloud
     SDK](https://cloud.google.com/sdk/docs/).
 1.  [Install and configure Apache Maven](http://maven.apache.org/index.html).
@@ -38,22 +37,4 @@ After the deploy finishes, you can view your application at
 `https://YOUR_PROJECT.appspot.com`, where `YOUR_PROJECT` is your Google Cloud
 project ID. You can see the new version deployed on the [App Engine section of
 the Google Cloud Console](https://console.cloud.google.com/appengine/versions).
-
-## Next steps
-
-1.  Read the [App Engine
-    documentation](https://cloud.google.com/appengine/docs/java/).
-1.  Explore the other [Google Cloud Platform sample
-    applications](https://github.com/GoogleCloudPlatform/java-docs-sample) for
-    Java™.
-
-## Contributing changes
-
-* See [CONTRIBUTING.md](CONTRIBUTING.md)
-
-* ## Licensing
-
-* See [LICENSE](LICENSE)
-
-Java is a registered trademark of Oracle Corporation and/or its affiliates.
 
